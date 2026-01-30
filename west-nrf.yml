@@ -1,0 +1,17 @@
+manifest:
+  remotes:
+  - name: anjay
+    url-base: https://github.com/AVSystem
+  - name: ncs
+    url-base: https://github.com/nrfconnect
+  projects:
+  - name: sdk-nrf
+    path: nrf
+    remote: ncs
+    revision: v3.2.0
+    import: true
+  - name: Anjay-zephyr-module
+    submodules: true
+    remote: anjay
+    revision: 063da8db13da47b1bd2f4cedb945b62af618af46
+    path: modules/lib/anjay-zephyr-module
