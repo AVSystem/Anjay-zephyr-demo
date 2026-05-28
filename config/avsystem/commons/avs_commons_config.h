@@ -596,7 +596,7 @@
  * #endif
  * </code>
  */
-//#define AVS_COMMONS_WITH_EXTERNAL_LOG_LEVELS_HEADER
+/* #undef AVS_COMMONS_WITH_EXTERNAL_LOG_LEVELS_HEADER */
 
 /**
  * Disable log level check in runtime. Allows to save at least 1.3kB of memory.
@@ -666,7 +666,7 @@
  * appropriate compatibility header (see @ref AVS_COMMONS_POSIX_COMPAT_HEADER) -
  * lwIP and Winsock are currently supported for this scenario.
  */
-//#define AVS_COMMONS_NET_WITH_POSIX_AVS_SOCKET
+/* #undef AVS_COMMONS_NET_WITH_POSIX_AVS_SOCKET */
 
 /**
  * @deprecated This is deprecated API. This API can be removed in future

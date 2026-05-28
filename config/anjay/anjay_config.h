@@ -37,7 +37,7 @@
  *
  * <strong>Anjay requires the following avs_coap options to be enabled:</strong>
  *
- * - @c WITH_AVS_COAP_UDP
+ * - @c WITH_AVS_COAP_UDP and/or @c WITH_AVS_COAP_TCP
  * - @c WITH_AVS_COAP_STREAMING_API
  * - @c WITH_AVS_COAP_BLOCK is highly recommended
  * - @c WITH_AVS_COAP_OBSERVE (if @c ANJAY_WITH_OBSERVE is enabled)
@@ -53,7 +53,7 @@
  * - @c avs_url
  * - @c avs_persistence is highly recommended
  * - @c avs_http (if @c ANJAY_WITH_HTTP_DOWNLOAD is enabled)
- * - @c avs_rbtree (if @c ANJAY_WITH_OBSERVE or
+ * - @c avs_rbtree or @c avs_sorted_set (if @c ANJAY_WITH_OBSERVE or
  *   @c ANJAY_WITH_MODULE_ACCESS_CONTROL is enabled)
  *
  * In the repository, this file is provided as <c>anjay_config.h.in</c>,
@@ -124,6 +124,14 @@
  * Enable support for the LwM2M Bootstrap Interface.
  */
 #define ANJAY_WITH_BOOTSTRAP
+
+/**
+ * Enable support for the LwM2M Bootstrap-Pack operation.
+ *
+ * Requires <c>ANJAY_WITH_BOOTSTRAP</c> and <c>ANJAY_WITH_LWM2M12</c> to be
+ * enabled.
+ */
+/* #undef ANJAY_WITH_BOOTSTRAP_PACK */
 
 /**
  * Enable support for the LwM2M Discover operation.
@@ -200,6 +208,13 @@
 #define ANJAY_WITH_LWM2M11
 
 /**
+ * Enable support for features new to LwM2M protocol version 1.2.
+ *
+ * Requires <c>ANJAY_WITH_LWM2M11</c> to be enabled.
+ */
+/* #undef ANJAY_WITH_LWM2M12 */
+
+/**
  * Enable support for OSCORE-based security for LwM2M connections.
  *
  * Requires <c>ANJAY_WITH_LWM2M11</c> to be enabled, and
@@ -209,6 +224,14 @@
  * in the open source version.
  */
 /* #undef ANJAY_WITH_COAP_OSCORE */
+
+/**
+ * Enable support for Observation Attributes.
+ *
+ * Requires <c>ANJAY_WITH_OBSERVE</c> and <c>ANJAY_WITH_LWM2M12</c> to be
+ * enabled.
+ */
+/* #undef ANJAY_WITH_OBSERVATION_ATTRIBUTES */
 
 /**
  * Enable support for the LwM2M Send operation.
@@ -698,6 +721,37 @@
  * The default value defined in CMake build scripts is 20.
  */
 #define ANJAY_MAX_HOLDOFF_TIME 20
+
+/**
+ * Random factor applied to the Hold Off Time when scheduling a client initiated
+ * Bootstrap request.
+ *
+ * Before each bootstrap attempt, the Hold Off Time is multiplied by a random
+ * value distributed in the range [1.0, this parameter] (the random value is
+ * generated only on the first attempt and is then used to compute subsequent
+ * Hold Off Times). This introduces jitter to prevent multiple clients from
+ * bootstrapping simultaneously.
+ *
+ * The resulting delay is still capped at <c>ANJAY_MAX_HOLDOFF_TIME</c>.
+ *
+ * If editing this file manually, <c>1.5</c> shall be
+ * replaced with a floating-point literal greater than or equal to 1.0.
+ * The default value defined in CMake build scripts is 1.5.
+ */
+#define ANJAY_HOLDOFF_JITTER_RANDOM_FACTOR 1.5
+
+/**
+ * Enable support for optional resources of the Firmware Update object
+ * introduced in LwM2M 1.1.
+ *
+ * This includes the following resources:
+ * - Severity
+ * - Last State Change Time
+ * - Max Defer Period
+ *
+ * Requires <c>ANJAY_WITH_LWM2M11</c> to be enabled.
+ */
+/* #undef ANJAY_WITH_MODULE_FW_UPDATE_V11_RESOURCES */
 
 /**@}*/
 
