@@ -2,4 +2,6 @@
 build_log.txt
 .vscode
 .idea
+*.swp
+tags
 __pycache__
