@@ -103,11 +103,12 @@ int main(void) {
     }
     LOG_INF("LTE link established.");
 
+    size_t msg_cache_size = 4000;
     const anjay_configuration_t CONFIG = {
         .endpoint_name = CONFIG_ANJAY_ZEPHYR_DEMO_ENDPOINT_NAME,
         .in_buffer_size = 4000,
         .out_buffer_size = 4000,
-        .msg_cache_size = 4000,
+        .msg_cache_size = &msg_cache_size,
     };
 
     anjay_t *anjay = anjay_new(&CONFIG);
